@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
+    "test": "env-cmd -f .env.json -e test -- node --test",
+    "start": "env-cmd -f .env.json -e production -- node src/index.js",
+    "dev": "env-cmd -f .env.json -e development -- node --watch src/index.js",
+    "start:test": "env-cmd -f .env.json -e test -- node src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,8 @@
     "express": "^5.3.0",
     "handlebars": "^4.7.10",
     "htmx.org": "^4.0.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^11.0.0"
   }
 }
