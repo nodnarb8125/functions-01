@@ -6,6 +6,9 @@ const viewsDir = path.join(import.meta.dirname, '../views');
 
 const app = express();
 
+const bootstrapDir = path.join(import.meta.dirname, '../node_modules/bootstrap/dist');
+app.use('/bootstrap', express.static(bootstrapDir));
+
 app.engine('hbs', handlebarsEngine);
 app.set('view engine', 'hbs');
 app.set('views', viewsDir);
