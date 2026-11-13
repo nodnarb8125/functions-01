@@ -6,9 +6,9 @@ const viewsDir = path.join(import.meta.dirname, '../views');
 
 const app = express();
 
-const bootstrapDir = path.join(import.meta.dirname, '../node_modules/bootstrap/dist');
+const publicDir = path.join(import.meta.dirname, '../public');
 const htmxDir = path.join(import.meta.dirname, '../node_modules/htmx.org/dist');
-app.use('/bootstrap', express.static(bootstrapDir));
+app.use(express.static(publicDir));
 app.use('/htmx', express.static(htmxDir));
 
 app.engine('hbs', handlebarsEngine);

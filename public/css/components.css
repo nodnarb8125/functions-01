@@ -1,0 +1,125 @@
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.button--primary {
+  color: var(--color-accent-text);
+  background-color: var(--color-accent);
+}
+
+.button--primary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Notices */
+.notice {
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.notice--success {
+  color: var(--color-success-text);
+  background-color: var(--color-success-bg);
+  border-color: var(--color-success-border);
+}
+
+/* Cards */
+.card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nav a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav a[aria-current="page"] {
+  color: var(--color-text);
+}
+
+/* Forms */
+label {
+  display: block;
+  margin-block-end: var(--space-2xs);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  padding: var(--space-sm) var(--space-md);
+  font: inherit;
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th,
+td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: start;
+  border-block-end: 1px solid var(--color-border);
+}
+
+th {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+tbody tr:hover {
+  background-color: light-dark(rgb(0 0 0 / 0.02), rgb(255 255 255 / 0.04));
+}
