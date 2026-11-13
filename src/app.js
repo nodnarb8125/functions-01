@@ -7,7 +7,9 @@ const viewsDir = path.join(import.meta.dirname, '../views');
 const app = express();
 
 const bootstrapDir = path.join(import.meta.dirname, '../node_modules/bootstrap/dist');
+const htmxDir = path.join(import.meta.dirname, '../node_modules/htmx.org/dist');
 app.use('/bootstrap', express.static(bootstrapDir));
+app.use('/htmx', express.static(htmxDir));
 
 app.engine('hbs', handlebarsEngine);
 app.set('view engine', 'hbs');
@@ -15,6 +17,12 @@ app.set('views', viewsDir);
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'Hello' });
+});
+
+app.get('/demo/greeting', (req, res) => {
+  res.render('fragments/greeting', {
+    time: new Date().toLocaleTimeString(),
+  });
 });
 
 export default app;
