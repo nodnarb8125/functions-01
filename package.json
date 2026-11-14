@@ -5,6 +5,7 @@
   "scripts": {
     "test": "env-cmd -f .env.json -e test -- node --test",
     "start": "env-cmd -f .env.json -e production -- node src/index.js",
+    "predev": "node scripts/stop-server.mjs",
     "dev": "env-cmd -f .env.json -e development -- node --watch src/index.js",
     "start:test": "env-cmd -f .env.json -e test -- node src/index.js"
   },
