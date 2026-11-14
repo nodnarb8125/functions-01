@@ -1,6 +1,10 @@
 import path from 'node:path';
 import express from 'express';
 import handlebarsEngine from './engine/handlebars.js';
+import {
+  listFoundryModels,
+  redactConfigForDisplay,
+} from './azure/foundry-models.js';
 
 const viewsDir = path.join(import.meta.dirname, '../views');
 
@@ -61,6 +65,67 @@ app.get('/demo/panel-a', (req, res) => {
 
 app.get('/demo/panel-b', (req, res) => {
   res.render('fragments/panel-b');
+});
+
+async function loadFoundryModelsViewData() {
+  const config = redactConfigForDisplay();
+  if (config.error) {
+    return {
+      config,
+      models: [],
+      count: 0,
+      error: null,
+    };
+  }
+
+  try {
+    const result = await listFoundryModels();
+    return {
+      config: {
+        ...config,
+        resourceHost: result.resourceHost,
+        responsesBaseUrl: result.responsesBaseUrl,
+        deploymentsApiVersion: result.apiVersion,
+      },
+      models: result.models,
+      count: result.count,
+      fetchedAt: result.fetchedAt,
+      error: null,
+    };
+  } catch (err) {
+    return {
+      config,
+      models: [],
+      count: 0,
+      fetchedAt: null,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+app.get('/foundry/models', async (req, res) => {
+  const data = await loadFoundryModelsViewData();
+  res.render('foundry/models', {
+    title: 'Installed Foundry models',
+    navCurrent: 'foundry-models',
+    ...data,
+  });
+});
+
+app.get('/foundry/models/table', async (req, res) => {
+  const data = await loadFoundryModelsViewData();
+  res.render('fragments/foundry-models-table', data);
+});
+
+app.get('/api/foundry/models', async (req, res) => {
+  try {
+    const result = await listFoundryModels();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
 });
 
 export default app;

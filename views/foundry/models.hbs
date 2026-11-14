@@ -1,0 +1,82 @@
+{{#> layout title=title}}
+  <main class="center stack stack--loose">
+    <header class="stack">
+      <h1>{{title}}</h1>
+      <p class="lead">
+        Deployments installed on your Microsoft Foundry resource, listed via
+        <strong>Azure Resource Manager</strong> (same source as the Foundry portal).
+        Use the <strong>deployment</strong> name as <code>model</code> on the Responses API.
+      </p>
+    </header>
+
+    {{#if config.error}}
+      <div class="notice" role="status">
+        <p><strong>Configuration</strong></p>
+        <p>{{config.error}}</p>
+        <p class="stack" style="margin-block-start: var(--space-md);">
+          Required: <code>AZURE_OPENAI_API_ENDPOINT</code>, <code>AZURE_OPENAI_API_KEY</code>,
+          <code>AZURE_SUBSCRIPTION_ID</code>, <code>AZURE_OPENAI_RESOURCE_GROUP</code>,
+          and ARM auth (<code>az login</code> or service principal env vars).
+        </p>
+      </div>
+    {{else}}
+      <dl class="card stack" style="margin: 0;">
+        <div class="cluster" style="justify-content: space-between; align-items: baseline;">
+          <dd style="margin: 0;"><strong>Host:</strong> <code>{{config.resourceHost}}</code></dd>
+          <dd style="margin: 0;"><strong>Auth (inference):</strong> {{config.auth}}</dd>
+        </div>
+        <dd style="margin: 0;"><strong>Account:</strong> <code>{{config.accountName}}</code></dd>
+        <dd style="margin: 0;"><strong>Resource group:</strong> <code>{{config.resourceGroup}}</code></dd>
+        <dd style="margin: 0;"><strong>Responses base:</strong> <code>{{config.responsesBaseUrl}}</code></dd>
+        {{#if fetchedAt}}
+          <dd style="margin: 0;"><strong>Fetched:</strong> {{fetchedAt}}</dd>
+        {{/if}}
+      </dl>
+    {{/if}}
+
+    {{#if error}}
+      <div class="notice" role="alert">
+        <p><strong>Could not load deployments</strong></p>
+        <pre style="margin: 0; white-space: pre-wrap; font-size: var(--text-sm);">{{error}}</pre>
+      </div>
+    {{/if}}
+
+    {{#if models.length}}
+      <section class="stack">
+        <div class="cluster" style="justify-content: space-between; align-items: baseline;">
+          <h2 style="margin: 0;">{{count}} installed</h2>
+          <button
+            type="button"
+            class="button"
+            hx-get="/foundry/models/table"
+            hx-target="#foundry-models-table"
+            hx-swap="innerHTML"
+          >
+            Refresh
+          </button>
+        </div>
+        <div id="foundry-models-table">
+          {{> fragments/foundry-models-table}}
+        </div>
+      </section>
+    {{else}}
+      {{#unless error}}
+        {{#unless config.error}}
+          <p>No deployed models found on this resource.</p>
+        {{/unless}}
+      {{/unless}}
+    {{/if}}
+
+    <section class="card stack">
+      <h2 style="margin: 0;">API notes</h2>
+      <ul class="stack">
+        {{#if config.accountName}}
+          <li>
+            <code>GET …/Microsoft.CognitiveServices/accounts/{{config.accountName}}/deployments?api-version={{config.deploymentsApiVersion}}</code>
+          </li>
+        {{/if}}
+        <li><code>POST {{config.responsesBaseUrl}}responses</code> — <code>model</code> is the deployment name.</li>
+      </ul>
+    </section>
+  </main>
+{{/layout}}

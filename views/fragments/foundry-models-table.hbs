@@ -1,0 +1,32 @@
+<div class="card" style="padding: 0; overflow: auto;">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Deployment</th>
+        <th scope="col">Model</th>
+        <th scope="col">Version</th>
+        <th scope="col">Status</th>
+        <th scope="col">Scale</th>
+        <th scope="col">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each models}}
+        <tr>
+          <td><code>{{deploymentName}}</code></td>
+          <td>{{#if modelName}}<code>{{modelName}}</code>{{else}}—{{/if}}</td>
+          <td>{{#if modelVersion}}<code>{{modelVersion}}</code>{{else}}—{{/if}}</td>
+          <td>{{#if status}}{{status}}{{else}}—{{/if}}</td>
+          <td>
+            {{#if scaleType}}
+              {{scaleType}}{{#if capacity}} ({{capacity}}){{/if}}
+            {{else}}
+              —
+            {{/if}}
+          </td>
+          <td>{{#if createdAt}}{{createdAt}}{{else}}—{{/if}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
