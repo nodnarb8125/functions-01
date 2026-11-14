@@ -2,14 +2,22 @@ import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import Handlebars from 'handlebars';
 
-const partialsDir = path.join(import.meta.dirname, '../../views/partials');
-
-for (const file of readdirSync(partialsDir)) {
-  if (!file.endsWith('.hbs')) continue;
-  const name = file.slice(0, -4);
-  const source = readFileSync(path.join(partialsDir, file), 'utf8');
-  Handlebars.registerPartial(name, source);
+function registerPartialsFromDir(dir, prefix = '') {
+  for (const file of readdirSync(dir)) {
+    if (!file.endsWith('.hbs')) continue;
+    const name = prefix + file.slice(0, -4);
+    const source = readFileSync(path.join(dir, file), 'utf8');
+    Handlebars.registerPartial(name, source);
+  }
 }
+
+registerPartialsFromDir(path.join(import.meta.dirname, '../../views/partials'));
+registerPartialsFromDir(
+  path.join(import.meta.dirname, '../../views/fragments'),
+  'fragments/',
+);
+
+Handlebars.registerHelper('eq', (a, b) => a === b);
 
 export default function handlebarsEngine(path, options, callback) {
   try {

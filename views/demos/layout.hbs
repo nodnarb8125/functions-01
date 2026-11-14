@@ -1,0 +1,43 @@
+{{#> layout title=title}}
+  <main class="center stack stack--loose">
+    <header class="stack">
+      <h1>{{title}}</h1>
+      <p class="lead">Layout utilities from <code>public/css/layout.css</code>, composed inside <code>.center</code>.</p>
+    </header>
+
+    <section class="stack">
+      <h2>Stack</h2>
+      <p class="lead">Vertical rhythm with a consistent gap (<code>.stack</code>).</p>
+      <div class="card stack">
+        <p>First block</p>
+        <p>Second block</p>
+        <p>Third block</p>
+      </div>
+    </section>
+
+    <section class="stack stack--loose">
+      <h2>Cluster</h2>
+      <p class="lead">Inline groups that wrap (<code>.cluster</code>).</p>
+      <div class="card cluster">
+        <span class="button">Tag A</span>
+        <span class="button">Tag B</span>
+        <span class="button">Tag C</span>
+        <span class="button">Tag D</span>
+        <span class="button">Tag E</span>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Grid</h2>
+      <p class="lead">Responsive auto-fit columns (<code>.grid</code>).</p>
+      <div class="grid">
+        <div class="card">Cell 1</div>
+        <div class="card">Cell 2</div>
+        <div class="card">Cell 3</div>
+        <div class="card">Cell 4</div>
+      </div>
+    </section>
+
+    <p><a href="/demos">← All demos</a></p>
+  </main>
+{{/layout}}

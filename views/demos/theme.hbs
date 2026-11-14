@@ -1,0 +1,36 @@
+{{#> layout title=title}}
+  <main class="center stack stack--loose">
+    <header class="stack">
+      <h1>{{title}}</h1>
+      <p class="lead">Use the sun/moon control (top right) on any page—it is wired in the layout and persisted in <code>localStorage</code>.</p>
+    </header>
+
+    <div class="notice" role="note">
+      Semantic tokens in <code>tokens.css</code> map palette values to <code>--color-*</code> variables. Components consume those variables, so the whole UI tracks the theme.
+    </div>
+
+    <section class="grid">
+      <article class="card stack">
+        <h2>Surfaces</h2>
+        <p style="color: var(--color-text-muted);">Page background vs. elevated surface.</p>
+        <div style="padding: var(--space-md); border-radius: var(--radius-md); background: var(--color-bg); border: 1px solid var(--color-border);">
+          <code>--color-bg</code>
+        </div>
+        <div style="padding: var(--space-md); border-radius: var(--radius-md); background: var(--color-surface); border: 1px solid var(--color-border);">
+          <code>--color-surface</code>
+        </div>
+      </article>
+      <article class="card stack">
+        <h2>Accent</h2>
+        <button type="button" class="button button--primary">Uses --color-accent</button>
+        <p style="color: var(--color-text-muted);">Links and focus rings use the same accent family.</p>
+      </article>
+      <article class="card stack">
+        <h2>Feedback</h2>
+        <div class="notice notice--success">Success uses <code>--color-success-*</code> tokens.</div>
+      </article>
+    </section>
+
+    <p><a href="/demos">← All demos</a></p>
+  </main>
+{{/layout}}

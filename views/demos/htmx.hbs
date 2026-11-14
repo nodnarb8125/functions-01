@@ -1,0 +1,67 @@
+{{#> layout title=title}}
+  <main class="center stack stack--loose">
+    <header class="stack">
+      <h1>{{title}}</h1>
+      <p class="lead">Responses from <code>views/fragments/</code> swap into targets—no full layout in the fragment.</p>
+    </header>
+
+    <section class="card stack">
+      <h2>Greeting swap</h2>
+      <p>Same pattern as the home page: <code>hx-get</code>, <code>hx-target</code>, <code>hx-swap="innerHTML"</code>.</p>
+      <div class="cluster">
+        <button
+          type="button"
+          class="button button--primary"
+          hx-get="/demo/greeting"
+          hx-target="#htmx-greeting"
+          hx-swap="innerHTML"
+        >
+          Load greeting
+        </button>
+      </div>
+      <div id="htmx-greeting"></div>
+    </section>
+
+    <section class="card stack">
+      <h2>Stateful counter</h2>
+      <p>Each click returns a fresh fragment; the server reads <code>?n=</code> and increments.</p>
+      <div id="counter-host" class="stack">
+        {{> fragments/counter count=0}}
+      </div>
+    </section>
+
+    <section class="card stack">
+      <h2>Target selection</h2>
+      <p>One trigger, two targets—buttons set <code>hx-target</code> per request.</p>
+      <div class="cluster">
+        <button
+          type="button"
+          class="button"
+          hx-get="/demo/panel-a"
+          hx-target="#panel-slot"
+          hx-swap="innerHTML"
+        >
+          Load panel A
+        </button>
+        <button
+          type="button"
+          class="button button--primary"
+          hx-get="/demo/panel-b"
+          hx-target="#panel-slot"
+          hx-swap="innerHTML"
+        >
+          Load panel B
+        </button>
+      </div>
+      <div id="panel-slot" class="notice">Choose a panel.</div>
+    </section>
+
+    <section class="card stack" hx-boost="true">
+      <h2>hx-boost</h2>
+      <p>This section boosts navigation: the link below fetches a full page but replaces the <code>&lt;body&gt;</code> without a hard reload.</p>
+      <a href="/demos/htmx/boosted" class="button">Boosted page</a>
+    </section>
+
+    <p><a href="/demos">← All demos</a></p>
+  </main>
+{{/layout}}

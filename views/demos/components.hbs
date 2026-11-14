@@ -1,0 +1,89 @@
+{{#> layout title=title}}
+  <main class="center stack stack--loose">
+    <header class="stack">
+      <h1>{{title}}</h1>
+      <p class="lead">Primitives from <code>public/css/components.css</code>.</p>
+    </header>
+
+    <section class="stack">
+      <h2>Buttons</h2>
+      <div class="cluster">
+        <button type="button" class="button">Default</button>
+        <button type="button" class="button button--primary">Primary</button>
+        <a href="/demos" class="button">Link as button</a>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Notices</h2>
+      <div class="stack">
+        <div class="notice" role="status">Neutral notice using surface and border tokens.</div>
+        <div class="notice notice--success" role="status">Success notice for confirmations.</div>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Card</h2>
+      <article class="card stack">
+        <h3>Card title</h3>
+        <p>Cards group related content with padding, radius, and a light shadow.</p>
+      </article>
+    </section>
+
+    <section class="stack">
+      <h2>Form</h2>
+      <form class="stack card" action="/demos/components" method="get">
+        <div>
+          <label for="demo-name">Name</label>
+          <input id="demo-name" name="name" type="text" placeholder="Ada Lovelace" autocomplete="name">
+        </div>
+        <div>
+          <label for="demo-role">Role</label>
+          <select id="demo-role" name="role">
+            <option value="">Choose…</option>
+            <option value="engineer">Engineer</option>
+            <option value="designer">Designer</option>
+          </select>
+        </div>
+        <div>
+          <label for="demo-notes">Notes</label>
+          <textarea id="demo-notes" name="notes" placeholder="Optional message"></textarea>
+        </div>
+        <div class="cluster">
+          <button type="submit" class="button button--primary">Submit (GET demo)</button>
+          <button type="reset" class="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="stack">
+      <h2>Table</h2>
+      <div class="card" style="padding: 0; overflow: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CSS layers</td>
+              <td>Ready</td>
+            </tr>
+            <tr>
+              <td>HTMX fragments</td>
+              <td>Ready</td>
+            </tr>
+            <tr>
+              <td>Theme toggle</td>
+              <td>Ready</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p><a href="/demos">← All demos</a></p>
+  </main>
+{{/layout}}

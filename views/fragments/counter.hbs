@@ -1,0 +1,10 @@
+<p>Count: <strong>{{count}}</strong></p>
+<button
+  type="button"
+  class="button button--primary"
+  hx-get="/demo/counter?n={{count}}"
+  hx-target="#counter-host"
+  hx-swap="innerHTML"
+>
+  Increment
+</button>
