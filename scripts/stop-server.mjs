@@ -49,7 +49,6 @@ function stopProjectDevProcesses() {
   const patterns = [
     'env-cmd -f .env.json -e development',
     'node --watch src/index.js',
-    'node src/index.js',
   ];
 
   const candidates = new Set();
