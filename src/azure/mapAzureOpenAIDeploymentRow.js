@@ -4,6 +4,29 @@ function extractAzureDeploymentNameFromArmId(id) {
   return match ? match[1] : null;
 }
 
+function resolveDeploymentCreatedUnix(row) {
+  const candidates = [
+    row.created_at,
+    row.created,
+    row.systemData?.createdAt,
+    row.properties?.createdAt,
+  ];
+
+  for (const value of candidates) {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return value;
+    }
+    if (typeof value === 'string' && value.trim()) {
+      const ms = Date.parse(value);
+      if (Number.isFinite(ms)) {
+        return Math.floor(ms / 1000);
+      }
+    }
+  }
+
+  return null;
+}
+
 export function resolveAzureDeploymentName(row) {
   const name = String(row.name ?? row.deployment_id ?? '').trim();
   if (name) return name;
@@ -34,15 +57,8 @@ export default function mapAzureOpenAIDeploymentRow(row) {
     modelVersion: modelVersion || null,
     status: status || null,
     scaleType: scale?.scale_type ?? scale?.name ?? null,
-    capacity: scale?.capacity ?? null,
-    created:
-      typeof row.created_at === 'number'
-        ? row.created_at
-        : row.created_at
-          ? Math.floor(Date.parse(row.created_at) / 1000)
-          : typeof row.created === 'number'
-            ? row.created
-            : null,
+    capacity: scale?.capacity ?? row.properties?.currentCapacity ?? null,
+    created: resolveDeploymentCreatedUnix(row),
     object: row.object ?? 'deployment',
   };
 }
